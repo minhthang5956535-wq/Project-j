@@ -123,7 +123,7 @@ const AvailabilityCalendar = ({ availability }) => {
       <div className="mt-8 flex items-start gap-4 p-6 bg-blue-50/30 border border-blue-50 rounded-[28px]">
           <AlertCircle size={22} className="text-blue-500 mt-1 flex-shrink-0" />
           <p className="text-xs font-bold text-gray-700 leading-relaxed">
-             <span className="text-sky-600">Trả phòng:</span> Khách sẽ rời đi vào buổi sáng, nên bạn vẫn có thể đặt phòng để nhận (Check-in) vào buổi chiều ngày hôm đó. Hệ thống của onghai tự động tối ưu lịch để đảm bảo trải nghiệm tốt nhất.
+             <span className="text-sky-600">Trả phòng:</span> Khách sẽ rời đi vào buổi sáng, nên bạn vẫn có thể đặt phòng để nhận (Check-in) vào buổi chiều ngày hôm đó. Hệ thống của Ông Hai Home tự động tối ưu lịch để đảm bảo trải nghiệm tốt nhất.
           </p>
       </div>
     </div>

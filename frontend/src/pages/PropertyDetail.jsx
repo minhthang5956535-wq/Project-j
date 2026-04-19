@@ -205,7 +205,7 @@ const PropertyDetail = () => {
                 <div className="pt-1"><ShieldCheck className="text-[var(--primary)]" /></div>
                 <div>
                   <h4 className="font-bold text-lg">Chỗ ở uy tín</h4>
-                  <p className="text-[var(--gray-light)]">Thông tin về căn hộ này đã được đội ngũ onghai xác thực 100%.</p>
+                  <p className="text-[var(--gray-light)]">Thông tin về căn hộ này đã được đội ngũ Ông Hai Home xác thực 100%.</p>
                 </div>
               </div>
             </section>
@@ -250,7 +250,7 @@ const PropertyDetail = () => {
             >
               <div className="flex justify-between items-baseline mb-8">
                 <div>
-                  <span className="text-3xl font-black">{Number(property.price_per_night).toLocaleString('vi-VN')} ₫</span>
+                  <span className="text-3xl font-black">{(Number(property.price_per_night) || 0).toLocaleString('vi-VN')} ₫</span>
                   <span className="text-[var(--gray-light)] font-bold"> / đêm</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-sm font-bold">
@@ -321,12 +321,12 @@ const PropertyDetail = () => {
               <div className="space-y-4">
                 {totalNights > 0 && (
                     <div className="flex justify-between text-base font-medium text-gray-600">
-                        <span className="underline">{Number(property.price_per_night).toLocaleString('vi-VN')} ₫ x {totalNights} đêm</span>
-                        <span className="font-bold">{(property.price_per_night * totalNights).toLocaleString('vi-VN')} ₫</span>
+                        <span className="underline">{(Number(property.price_per_night) || 0).toLocaleString('vi-VN')} ₫ x {totalNights} đêm</span>
+                        <span className="font-bold">{((Number(property.price_per_night) || 0) * totalNights).toLocaleString('vi-VN')} ₫</span>
                     </div>
                 )}
                 <div className="flex justify-between text-base font-medium text-gray-600">
-                    <span className="underline">Phí dịch vụ onghai</span>
+                    <span className="underline">Phí dịch vụ Ông Hai Home</span>
                     <span className="font-bold">0 ₫</span>
                 </div>
                 <div className="flex justify-between items-end pt-6 border-t border-white/40">

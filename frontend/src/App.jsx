@@ -11,6 +11,7 @@ import Bookings from './pages/Bookings';
 import Wishlist from './pages/Wishlist';
 import Notifications from './pages/Notifications';
 import Checkout from './pages/Checkout';
+import Footer from './components/Layout/Footer';
 import { useLocation } from 'react-router-dom';
 
 const AppContent = () => {
@@ -37,6 +38,7 @@ const AppContent = () => {
           } />
         </Routes>
       </main>
+      {!isAdminPage && <Footer />}
     </div>
   );
 };

@@ -9,21 +9,38 @@ const Bookings = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const fetchBookings = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/bookings/my');
+            if (!response.ok) throw new Error('Không thể tải lịch sử giao dịch. Vui lòng thử lại sau.');
+            const data = await response.json();
+            setBookings(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                const response = await api.get('/bookings/my');
-                if (!response.ok) throw new Error('Không thể tải lịch sử giao dịch. Vui lòng thử lại sau.');
-                const data = await response.json();
-                setBookings(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchBookings();
     }, []);
+
+    const handleCancelBooking = async (id) => {
+        if (!window.confirm('Bạn có chắc chắn muốn hủy chuyến đi này?')) return;
+        try {
+            const res = await api.patch(`/bookings/${id}/cancel`);
+            if (res.ok) {
+                setBookings(bookings.map(b => b.id === id ? { ...b, status: 'cancelled' } : b));
+            } else {
+                const data = await res.json();
+                alert(data.message || 'Lỗi khi hủy đơn hàng.');
+            }
+        } catch (err) {
+            alert('Lỗi hệ thống khi hủy đơn hàng.');
+        }
+    };
 
     if (loading) return (
         <div className="container py-32 flex flex-col items-center justify-center gap-6">
@@ -37,7 +54,7 @@ const Bookings = () => {
             <div className="container py-12">
                 <header className="mb-12">
                     <h1 className="text-5xl font-black mb-4 font-['Outfit'] tracking-tighter">Lịch sử giao dịch</h1>
-                    <p className="text-[var(--gray-light)] font-medium text-lg">Quản lý và xem lại tất cả các chuyến đi của bạn trên OngHai.</p>
+                    <p className="text-[var(--gray-light)] font-medium text-lg">Quản lý và xem lại tất cả các chuyến đi của bạn trên Ông Hai Home.</p>
                 </header>
 
                 {error ? (
@@ -54,7 +71,7 @@ const Bookings = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="glass rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border-white"
+                                className="glass rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border-white relative"
                             >
                                 <div className="relative h-48 overflow-hidden">
                                     <img 
@@ -67,7 +84,7 @@ const Bookings = () => {
                                             booking.status === 'confirmed' ? 'bg-emerald-500 text-white' : 
                                             booking.status === 'cancelled' ? 'bg-red-500 text-white' : 'bg-amber-500 text-white'
                                         }`}>
-                                            {booking.status === 'confirmed' ? 'Đã xác nhận' : booking.status === 'cancelled' ? 'Đã hủy' : 'Chờ duyệt'}
+                                            {booking.status === 'confirmed' ? 'Đã duyệt' : booking.status === 'cancelled' ? 'Đã hủy' : 'Chờ xác nhận'}
                                         </div>
                                     </div>
                                 </div>
@@ -91,14 +108,25 @@ const Bookings = () => {
                                         </div>
                                     </div>
                                     
-                                    <div className="pt-6 border-t border-gray-100 flex justify-between items-center">
-                                        <div className="flex items-center gap-2">
-                                            {booking.status === 'confirmed' ? <CheckCircle2 className="text-emerald-500" size={16} /> : booking.status === 'cancelled' ? <XCircle className="text-red-500" size={16} /> : <Clock className="text-amber-500" size={16} />}
-                                            <span className="text-[10px] font-black uppercase text-gray-400 tracking-tighter">Mã đơn: #{booking.id}</span>
+                                    <div className="pt-6 border-t border-gray-100 flex flex-col gap-4">
+                                        <div className="flex justify-between items-center">
+                                            <div className="flex items-center gap-2">
+                                                {booking.status === 'confirmed' ? <CheckCircle2 className="text-emerald-500" size={16} /> : booking.status === 'cancelled' ? <XCircle className="text-red-500" size={16} /> : <Clock className="text-amber-500" size={16} />}
+                                                <span className="text-[10px] font-black uppercase text-gray-400 tracking-tighter">Mã đơn: #{booking.id}</span>
+                                            </div>
+                                            <Link to={`/properties/${booking.property_id}`} className="text-xs font-black text-[var(--primary)] hover:underline flex items-center gap-1 group/link">
+                                                Chi tiết <ChevronRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                                            </Link>
                                         </div>
-                                        <Link to={`/properties/${booking.property_id}`} className="text-xs font-black text-[var(--primary)] hover:underline flex items-center gap-1 group/link">
-                                            Chi tiết phòng <ChevronRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
-                                        </Link>
+
+                                        {booking.status === 'pending' && (
+                                            <button 
+                                                onClick={() => handleCancelBooking(booking.id)}
+                                                className="w-full py-2.5 bg-red-50 text-red-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all active:scale-95 flex items-center justify-center gap-2"
+                                            >
+                                                <XCircle size={14} /> Hủy chuyến đi
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-[var(--primary-soft)] rounded-[32px] transition-colors pointer-events-none" />
@@ -109,7 +137,7 @@ const Bookings = () => {
                     <div className="text-center py-32 glass rounded-[40px] border-dashed border-2 max-w-4xl mx-auto bg-white/50">
                         <div className="text-8xl mb-8">🚢</div>
                         <h2 className="text-3xl font-black mb-4 font-['Outfit']">Bạn chưa có chuyến đi nào</h2>
-                        <p className="text-[var(--gray-light)] font-medium mb-10 max-w-md mx-auto">Bắt đầu hành trình khám phá những căn hộ tuyệt vời trên OngHai ngay hôm nay.</p>
+                        <p className="text-[var(--gray-light)] font-medium mb-10 max-w-md mx-auto">Bắt đầu hành trình khám phá những căn hộ tuyệt vời trên Ông Hai Home ngay hôm nay.</p>
                         <Link to="/" className="btn-premium px-12 py-4 rounded-full font-black text-sm uppercase tracking-widest inline-flex items-center gap-2 group">
                             Tìm phòng ngay <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                         </Link>

@@ -70,7 +70,7 @@ async function seedData() {
         const hashedPassword = await bcrypt.hash('admin123', 10);
         await run(
             'INSERT INTO users (name, email, password, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)',
-            ['Admin Hải', 'admin@onghai.com', hashedPassword, 'admin', new Date().toISOString(), new Date().toISOString()]
+            ['Huỳnh Minh Thắng', 'admin@onghai.com', hashedPassword, 'admin', new Date().toISOString(), new Date().toISOString()]
         );
     } else {
         await run("UPDATE users SET role = 'admin' WHERE email = ?", ['admin@onghai.com']);
@@ -104,7 +104,7 @@ async function seedData() {
                 price: 8500000,
                 address: 'Lê Thánh Tôn, Quận 1, TP. HCM',
                 category: 'Căn hộ',
-                host: 'Nguyễn Minh Hải',
+                host: 'Huỳnh Minh Thắng',
                 images: ['https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1200']
             },
             {

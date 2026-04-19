@@ -131,7 +131,7 @@ const AdminDashboard = () => {
     if (loading) return (
         <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center gap-4">
             <Loader2 className="animate-spin text-[var(--primary)]" size={48} strokeWidth={3} />
-            <p className="font-black text-[var(--primary)] tracking-widest uppercase text-xs">OngHai System Loading...</p>
+            <p className="font-black text-[var(--primary)] tracking-widest uppercase text-xs">Ông Hai Home System Loading...</p>
         </div>
     );
 
@@ -156,13 +156,13 @@ const AdminDashboard = () => {
                             OH
                         </div>
                         <div>
-                            <h1 className="text-xl font-black tracking-tighter">OngHai Admin</h1>
+                            <h1 className="text-xl font-black tracking-tighter">Ông Hai Home Admin</h1>
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Management v2.0</p>
                         </div>
                     </div>
                     
                     <a href="/" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-[var(--primary)] transition-colors group">
-                        <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" /> Về trang chủ OngHai
+                        <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" /> Về trang chủ Ông Hai Home
                     </a>
                 </div>
 
@@ -200,7 +200,7 @@ const AdminDashboard = () => {
                             {activeTab === 'dashboard' && 'Chào mừng trở lại, Boss! 👋'}
                             {activeTab === 'properties' && 'Quản lý kho phòng 🏠'}
                             {activeTab === 'bookings' && 'Dòng chảy đơn hàng 📜'}
-                            {activeTab === 'users' && 'Cộng đồng OngHai 👥'}
+                            {activeTab === 'users' && 'Cộng đồng Ông Hai Home 👥'}
                             {activeTab === 'settings' && 'Cấu hình hệ thống ⚙️'}
                         </h2>
                         <p className="text-slate-400 font-medium">Hệ thống đang hoạt động tối ưu nhất.</p>
@@ -212,7 +212,7 @@ const AdminDashboard = () => {
                         </button>
                         <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
                             <div className="text-right">
-                                <p className="text-sm font-black italic">M. Minh Hải</p>
+                                <p className="text-sm font-black italic">Huỳnh Minh Thắng</p>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase">Super Admin</p>
                             </div>
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" className="w-10 h-10 rounded-xl bg-slate-200 p-0.5 border border-slate-200" alt="Avatar" />
@@ -275,7 +275,7 @@ const AdminDashboard = () => {
                                     <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center text-[var(--primary)] mb-6 animate-bounce">
                                         <Shield size={40} />
                                     </div>
-                                    <h4 className="text-lg font-black mb-2 uppercase italic tracking-tighter">Bảo mật OngHai</h4>
+                                    <h4 className="text-lg font-black mb-2 uppercase italic tracking-tighter">Bảo mật Ông Hai Home</h4>
                                     <p className="text-sm text-slate-400 font-medium mb-6 px-4">Đang giám sát 24/7 tất cả các giao diện và giao dịch viên.</p>
                                     <div className="w-full h-1 bg-slate-50 rounded-full overflow-hidden">
                                         <motion.div className="h-full bg-emerald-500" animate={{ width: '100%' }} transition={{ duration: 2 }} />
@@ -387,15 +387,22 @@ const AdminDashboard = () => {
                                                         b.status === 'confirmed' ? 'bg-emerald-50 text-emerald-600' : 
                                                         b.status === 'cancelled' ? 'bg-red-50 text-red-600' : 'bg-amber-50 text-amber-600'
                                                     }`}>
-                                                        {b.status === 'confirmed' ? 'Đã duyệt' : b.status === 'cancelled' ? 'Đã hủy' : 'Chờ duyệt'}
+                                                        {b.status === 'confirmed' ? 'Đã duyệt' : b.status === 'cancelled' ? 'Đã hủy' : 'Chờ xác nhận'}
                                                     </span>
                                                 </td>
                                                 <td className="px-8 py-5">
                                                      <div className="flex justify-center gap-2">
-                                                        {b.status === 'confirmed' ? (
-                                                            <button onClick={() => handleUpdateBookingStatus(b.id, 'cancelled')} className="text-red-500 font-black text-[10px] uppercase tracking-widest hover:underline active:scale-95 transition-transform px-3 py-1 bg-red-50 rounded-lg">Hủy bỏ</button>
-                                                        ) : (
-                                                            <button onClick={() => handleUpdateBookingStatus(b.id, 'confirmed')} className="text-emerald-500 font-black text-[10px] uppercase tracking-widest hover:underline active:scale-95 transition-transform px-3 py-1 bg-emerald-50 rounded-lg">Phê duyệt</button>
+                                                        {b.status === 'pending' && (
+                                                            <>
+                                                                <button onClick={() => handleUpdateBookingStatus(b.id, 'confirmed')} className="text-emerald-500 font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 hover:text-white active:scale-95 transition-all px-3 py-1.5 bg-emerald-50 rounded-lg border border-emerald-100 flex items-center gap-1"><Check size={12} /> Duyệt</button>
+                                                                <button onClick={() => handleUpdateBookingStatus(b.id, 'cancelled')} className="text-red-500 font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white active:scale-95 transition-all px-3 py-1.5 bg-red-50 rounded-lg border border-red-100 flex items-center gap-1"><X size={12} /> Hủy</button>
+                                                            </>
+                                                        )}
+                                                        {b.status === 'confirmed' && (
+                                                            <button onClick={() => handleUpdateBookingStatus(b.id, 'cancelled')} className="text-red-500 font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white active:scale-95 transition-all px-3 py-1.5 bg-red-50 rounded-lg border border-red-100 flex items-center gap-1"><X size={12} /> Hủy đơn</button>
+                                                        )}
+                                                        {b.status === 'cancelled' && (
+                                                            <button onClick={() => handleUpdateBookingStatus(b.id, 'pending')} className="text-amber-500 font-black text-[10px] uppercase tracking-widest hover:bg-amber-500 hover:text-white active:scale-95 transition-all px-3 py-1.5 bg-amber-50 rounded-lg border border-amber-100 flex items-center gap-1"><Clock size={12} /> Khôi phục</button>
                                                         )}
                                                      </div>
                                                 </td>
@@ -456,7 +463,7 @@ const AdminDashboard = () => {
                              <div className="px-10 py-8 border-b border-slate-50 flex justify-between items-center bg-[var(--primary)] text-white">
                                 <div>
                                     <h3 className="text-2xl font-black italic tracking-tighter uppercase">Thêm phòng mới</h3>
-                                    <p className="text-xs font-bold text-white/70">Tạo thêm cơ hội kinh doanh cho OngHai</p>
+                                    <p className="text-xs font-bold text-white/70">Tạo thêm cơ hội kinh doanh cho Ông Hai Home</p>
                                 </div>
                                 <button onClick={() => setShowAddModal(false)} className="p-3 bg-white/20 rounded-2xl hover:bg-white/30 transition-all active:scale-95"><X size={24} /></button>
                              </div>

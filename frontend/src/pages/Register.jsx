@@ -67,7 +67,7 @@ const Register = () => {
               <User className="text-[var(--secondary)]" size={32} />
           </div>
           <h1 className="text-4xl font-extrabold mb-3 font-['Outfit'] tracking-tighter">Bắt đầu trải nghiệm</h1>
-          <p className="text-[var(--gray-light)] font-medium">Gia nhập cộng đồng cho thuê phòng lớn nhất onghai.</p>
+          <p className="text-[var(--gray-light)] font-medium">Gia nhập cộng đồng cho thuê phòng lớn nhất Ông Hai Home.</p>
         </div>
 
         {error && (

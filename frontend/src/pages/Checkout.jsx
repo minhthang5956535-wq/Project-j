@@ -30,7 +30,7 @@ const Checkout = () => {
     const bankId = 'OCB';
     const accountNo = '0911798840';
     const accountName = 'HUYNH MINH THANG';
-    const description = `ONGHAI PAY ${property.title.substring(0, 10)} ${bookingData.checkIn}`.replace(/\s+/g, '%20');
+    const description = `Ông Hai Home PAY ${property.title.substring(0, 10)} ${bookingData.checkIn}`.replace(/\s+/g, '%20');
     
     const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-compact2.png?amount=${finalAmount}&addInfo=${description}&accountName=${encodeURIComponent(accountName)}`;
 
@@ -184,7 +184,7 @@ const Checkout = () => {
                             </button>
 
                             <p className="mt-6 text-[10px] font-black text-gray-300 uppercase tracking-widest flex items-center gap-2">
-                                <ShieldCheck size={14} /> Bảo mật bởi hệ thống OngHai
+                                <ShieldCheck size={14} /> Bảo mật bởi hệ thống Ông Hai Home
                             </p>
                         </motion.div>
                     </div>
@@ -209,7 +209,7 @@ const Checkout = () => {
                             <CheckCircle2 size={64} />
                         </motion.div>
                         <h2 className="text-5xl font-black mb-4 font-['Outfit'] tracking-tighter">Đặt phòng thành công!</h2>
-                        <p className="text-xl text-[var(--gray-light)] font-medium max-w-md">OngHai đã nhận được xác nhận thanh toán của bạn. Đang chuyển hướng về trang lịch sử...</p>
+                        <p className="text-xl text-[var(--gray-light)] font-medium max-w-md">Ông Hai Home đã nhận được xác nhận thanh toán của bạn. Đang chuyển hướng về trang lịch sử...</p>
                     </motion.div>
                 )}
             </AnimatePresence>

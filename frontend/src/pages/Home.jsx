@@ -4,6 +4,10 @@ import { Star, MapPin, Heart, Search, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const ArrowRight = ({ size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+)
+
 const categories = [
   { name: 'Tất cả', icon: '🏠' },
   { name: 'Biển', icon: '🏖️' },
@@ -63,7 +67,7 @@ const PropertyCard = ({ property, index }) => {
           <MapPin size={14} className="opacity-60" /> {property.address || property.location}
         </p>
         <p className="flex items-baseline gap-1">
-          <span className="font-extrabold text-lg">{(property.price_per_night || property.price).toLocaleString('vi-VN')} ₫</span>
+          <span className="font-extrabold text-lg">{(property.price_per_night || property.price || 0).toLocaleString('vi-VN')} ₫</span>
           <span className="text-[var(--gray-light)] text-sm">/ đêm</span>
         </p>
       </div>
@@ -162,7 +166,7 @@ const Home = () => {
                     của riêng bạn.
                 </h1>
                 <p className="text-xl opacity-80 mb-10 max-w-xl leading-relaxed">
-                    Trải nghiệm những căn hộ mang phong cách thượng lưu, view biển tuyệt mỹ và dịch vụ hàng đầu chỉ có tại onghai.
+                    Trải nghiệm những căn hộ mang phong cách thượng lưu, view biển tuyệt mỹ và dịch vụ hàng đầu chỉ có tại Ông Hai Home.
                 </p>
                 <div className="flex gap-4">
                     <button className="btn-premium flex items-center gap-3">
@@ -182,7 +186,7 @@ const Home = () => {
         <div className="flex justify-between items-end mb-12">
             <div>
                 <h2 className="text-4xl font-extrabold mb-2 font-['Outfit']">Điểm đến hàng đầu</h2>
-                <p className="text-[var(--gray-light)] font-medium">Được cộng đồng onghai đánh giá cao nhất trong tháng này</p>
+                <p className="text-[var(--gray-light)] font-medium">Được cộng đồng Ông Hai Home đánh giá cao nhất trong tháng này</p>
             </div>
             <button className="px-6 py-2.5 rounded-full border border-gray-200 font-bold hover:bg-white hover:shadow-md transition-all text-sm">
                 Xem tất cả
@@ -225,8 +229,5 @@ const Home = () => {
   );
 };
 
-const ArrowRight = ({ size }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-)
 
 export default Home;

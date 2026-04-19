@@ -38,3 +38,27 @@ exports.createBooking = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.cancelBooking = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { id } = req.params;
+        
+        // Ensure the booking belongs to the user and is still pending
+        const booking = await getOne('SELECT status FROM bookings WHERE id = ? AND user_id = ?', [id, userId]);
+        
+        if (!booking) {
+            return res.status(404).json({ message: 'Không tìm thấy đơn đặt phòng.' });
+        }
+        
+        if (booking.status !== 'pending') {
+            return res.status(400).json({ message: 'Chỉ có thể hủy đơn đặt phòng đang ở trạng thái chờ xác nhận.' });
+        }
+        
+        await run('UPDATE bookings SET status = ?, updated_at = ? WHERE id = ?', ['cancelled', new Date().toISOString(), id]);
+        
+        res.json({ message: 'Đã hủy đơn đặt phòng thành công.' });
+    } catch (err) {
+        next(err);
+    }
+};
