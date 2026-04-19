@@ -8,7 +8,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
     try {
-      return savedUser ? JSON.parse(savedUser) : null;
+      const parsed = savedUser ? JSON.parse(savedUser) : null;
+      if (parsed && (parsed.id || parsed.email)) {
+        return parsed;
+      }
+      return null;
     } catch (e) {
       console.error('Failed to parse user from localStorage', e);
       localStorage.removeItem('user');

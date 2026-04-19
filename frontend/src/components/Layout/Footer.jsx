@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Facebook, 
-  Instagram, 
-  Youtube, 
   Mail, 
   Phone, 
   MapPin, 
@@ -32,17 +29,6 @@ const Footer = () => {
             <p className="text-zinc-400 leading-relaxed font-medium">
               Kiến tạo những chuẩn mực mới trong dịch vụ lưu trú. Mang đến trải nghiệm nghỉ dưỡng 5 sao cá nhân hóa cho từng khách hàng.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-zinc-800 hover:text-white transition-all hover:scale-110">
-                <Facebook size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-zinc-800 hover:text-white transition-all hover:scale-110">
-                <Instagram size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-zinc-800 hover:text-white transition-all hover:scale-110">
-                <Youtube size={18} />
-              </a>
-            </div>
           </div>
 
           <div className="space-y-8">

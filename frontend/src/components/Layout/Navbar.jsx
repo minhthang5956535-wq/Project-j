@@ -107,7 +107,7 @@ const Navbar = () => {
                 <div className="relative">
                     {user ? (
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--primary)] to-pink-400 flex items-center justify-center text-white text-xs font-black shadow-md border-2 border-white">
-                            {user.name.charAt(0).toUpperCase()}
+                            {(user?.name?.charAt(0) || user?.email?.charAt(0) || 'U').toUpperCase()}
                         </div>
                     ) : (
                         <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
@@ -130,8 +130,8 @@ const Navbar = () => {
                         <>
                             <div className="px-6 py-4 border-b border-gray-100 mb-2">
                                 <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Tài khoản</p>
-                                <p className="font-bold text-gray-900 truncate">{user.name}</p>
-                                <p className="text-xs text-gray-500">{user.email}</p>
+                                <p className="font-bold text-gray-900 truncate">{user?.name || 'Người dùng'}</p>
+                                <p className="text-xs text-gray-500">{user?.email || ''}</p>
                             </div>
                             <Link to="/notifications" onClick={() => setShowUserMenu(false)} className="w-full text-left px-6 py-3 text-sm font-bold hover:bg-gray-50 transition-colors flex items-center gap-3">
                                 <Bell size={18} className="text-gray-400" /> Thông báo
